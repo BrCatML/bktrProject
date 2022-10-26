@@ -60,7 +60,7 @@ body {
 .api-style {
     height: calc(100vh - 64px - var(--spaceVertical) - 10px );
     margin: var(--spaceVertical) var(--spaceHorizontal);
-    Max-width: calc(99vw);
+    max-width: calc(99vw);
     position: relative;    
 }
 
