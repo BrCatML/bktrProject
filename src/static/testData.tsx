@@ -36,7 +36,7 @@ export default {
         SKHP_T1_TrainIn: {
             during: {},
             end: {
-                incident: "/SKHP_T2_BridgeDown.*/",
+                incident: "/SKHP_T2_BridgeDown_.*/",
                 timeout: 360000.0,
             },
             start: {

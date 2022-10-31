@@ -1,109 +1,90 @@
-import React, { useEffect, useState } from 'react'
-import ReactFlow, { useNodesState, useEdgesState } from 'reactflow'
-import 'reactflow/dist/style.css'
-import './updatenode.css'
+import React, {useEffect, useState} from "react"
+import ReactFlow, {useNodesState, useEdgesState, Controls, Background, MiniMap, useNodes} from "reactflow"
+import "reactflow/dist/style.css"
+import "./updatenode.css"
 
-import { initialEdges, initialNodes, initialData } from './initialNodesEdges'
+// import {initialData} from "./initialNodesEdges"
+// import {useCallback} from "react"
+// import {addEdge, applyEdgeChanges, applyNodeChanges} from "reactflow"
+// import "reactflow/dist/style.css"
 
-const UpdateNode = () => {
-//   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-// const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialData.nodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialData.edges);
+// import {TextUpdaterNode} from "./customNodes/incident"
 
-    // useEffect(() => {
-    //     console.log(initialData.nodes)
-    //     console.log(initialData.edges)
-    // },[])
-    
-//   const [nodeName, setNodeName] = useState('Node 1');
-//   const [nodeBg, setNodeBg] = useState('#eee');
-//   const [nodeHidden, setNodeHidden] = useState(false);
+// import "./customNodes/text-updater-noe.css"
 
-//   useEffect(() => {
-//     setNodes((nds) =>
-//       nds.map((node) => {
-//         if (node.id === '1') {
-//           // it's important that you create a new object here
-//           // in order to notify react flow about the change
-//           node.data = {
-//             ...node.data,
-//             label: nodeName,
-//           };
-//         }
 
-//         return node;
-//       })
-//     );
-//   }, [nodeName, setNodes]);
+// // we define the nodeTypes outside of the component to prevent re-renderings
+// // you could also use useMemo inside the component
+// const nodeTypes = {textUpdater: TextUpdaterNode}
 
-//   useEffect(() => {
-//     setNodes((nds) =>
-//       nds.map((node) => {
-//         if (node.id === '1') {
-//           // it's important that you create a new object here
-//           // in order to notify react flow about the change
-//           node.style = { ...node.style, backgroundColor: nodeBg };
-//         }
+// function Flow() {
+//     // const nodesss = useNodes();
+//     const [nodes, setNodes] = useState(initialData.nodes)
+//     const [edges, setEdges] = useState(initialData.edges)
 
-//         return node;
-//       })
-//     );
-//   }, [nodeBg, setNodes]);
+//     const onNodesChange = useCallback((changes: any) => setNodes((nds) => applyNodeChanges(changes, nds)), [setNodes])
+//     const onEdgesChange = useCallback((changes: any) => setEdges((eds) => applyEdgeChanges(changes, eds)), [setEdges])
+//     const onConnect = useCallback((connection: any) => setEdges((eds) => addEdge(connection, eds)), [setEdges])
 
-//   useEffect(() => {
-//     setNodes((nds) =>
-//       nds.map((node) => {
-//         if (node.id === '1') {
-//           // when you update a simple type you can just update the value
-//           node.hidden = nodeHidden;
-//         }
+//     function gg() {
+//         // console.log('nodes',nodes)
+//         // console.log("edges", edges)
+//         let convertedData: any = { "incidents": {}}
+//         nodes.map((v,i) => {
+//             // console.log(v)
+//             convertedData.incidents[v.id] = {}
+//         })
+//         edges.map((v,i) => {
+//             // console.log(convertedData.incidents[v.target])
+//             convertedData.incidents[v.target][v.targetHandle] 
+//             ? (
+//                 // console.log('Y'),
+//                 convertedData.incidents[v.target][v.targetHandle].incident = `${convertedData.incidents[v.target][v.targetHandle].incident} | ${v.source}`
+//               )
+//             : (
+//                 // console.log('N'),
+//                 convertedData.incidents[v.target][v.targetHandle] = {incident : v.source}
+//               )
+//             // convertedData.incidents[v.target][v.targetHandle] = {incident : v.source}
+//         })
+//         // console.log(convertedData)
+//     }
 
-//         return node;
-//       })
-//     );
-//     setEdges((eds) =>
-//       eds.map((edge) => {
-//         if (edge.id === 'e1-2') {
-//           edge.hidden = nodeHidden;
-//         }
+//     return (
+//         <>
+//             <div className="parent-reackflow-style" style={{color: "black"}}>
+//                 <ReactFlow
+//                     nodes={nodes}
+//                     edges={edges}
+//                     onNodesChange={onNodesChange}
+//                     onEdgesChange={onEdgesChange}
+//                     onConnect={onConnect}
+//                     nodeTypes={nodeTypes}
+//                     fitView //располагает схему по размеру экрана
+//                     minZoom={0.1}
+//                     maxZoom={16}
+//                 >
+//                     <Background />
+//                     <Controls />
+//                     <MiniMap style={{height: 120}} />
+//                 </ReactFlow>
+//                 <Button onClick={gg}>watch current json in console</Button>
+//             </div>
+//         </>
+//     )
+// }
 
-//         return edge;
-//       })
-//     );
-//   }, [nodeHidden, setNodes, setEdges]);
-
-  return (
-    <div className="index-style " style={{color: "black"}}>
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-    //   defaultZoom={1.5}
-      minZoom={0.2}
-      maxZoom={4}
-      attributionPosition="bottom-left"
-    >
-      {/* <div className="updatenode__controls">
-        <label>label:</label>
-        <input value={nodeName} onChange={(evt) => setNodeName(evt.target.value)} />
-
-        <label className="updatenode__bglabel">background:</label>
-        <input value={nodeBg} onChange={(evt) => setNodeBg(evt.target.value)} />
-
-        <div className="updatenode__checkboxwrapper">
-          <label>hidden:</label>
-          <input
-            type="checkbox"
-            checked={nodeHidden}
-            onChange={(evt) => setNodeHidden(evt.target.checked)}
-          />
+import {Button} from "antd"
+import {getInitData} from "./initialData"
+const bbb = () => {
+    return (
+        <div className="index-style ">
+        <div style={{margin: 'auto'}}>
+            <Button onClick={() => {console.log(getInitData())}}>sdf</Button>
+            <h1>B K T R</h1>
         </div>
-      </div> */}
-    </ReactFlow>
-    </div>
-  );
-};
+        </div>
+    )
+}
 
-export default UpdateNode;
+export default bbb
