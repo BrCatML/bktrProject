@@ -1,60 +1,189 @@
-import testData from "../../static/testData"
+import {MarkerType} from "reactflow"
+const stepY: number = 100
+const stepX: number = 170
+const colorStart = "green"
+const colorDuring = "blue"
+const colorEnd = "red"
 
-function regExpFromString(str: string) {
-    const match = str.match(new RegExp("^/(.*?)/([gimy]*)$"))
-    return new RegExp(
-        (match ? match[1] : str)
-            .split("|")
-            .map((v) => v.replace(/\{.*}/g, "{.*}"))
-            .join("|"),
-    )
+function getSourceHandle(str: string) {
+    return str.indexOf("!") == -1 && str.indexOf("alive==False") == -1 ? "start" : "end"
 }
 
-export function getInitData () {
-    const TestData = testData
-    console.log('Начальные данные.incidents:',testData.incidents)
+export async function getConfigData(url: string) {
+    let gotData: any
+    gotData = await fetch(url)
+        .then((res) => res.json())
+        .catch(console.log)
+    // .finally(() => setLoading(false))
+    return gotData
+}
+
+function getSourceData(str: string, validNodes: Set<string>) {
+    const handle = getSourceHandle(str)
+    const namesLine = str
+        .replace(str.substring(str.indexOf("["), str.indexOf("]") + 1), "")
+        .split("/")
+        .join("")
+    // const namesLine = str.split("/").join("")
+    const names = namesLine.split("|")
+    //получили массив одиночных значений с ! и .* и ^
+    return names.map((namesItem) => {
+        let name = namesItem.replace("!", "")
+        let needRegExp = ""
+        if (name.indexOf(".*") != -1 || name.indexOf(".+") != -1) {
+            needRegExp = name
+            name = ""
+        } else if (!validNodes.has((name = name.replace("^", "")))) {
+            validNodes.add(name)
+        }
+        return {name, handle, needRegExp}
+    })
+}
+
+export function getInitData(TestData: any) {
+    // const TestData = testData
+    // console.log('Начальные данные.incidents:',testData.incidents)
+    // console.log('___________________')
 
     let nodes: any[] = []
-    let edgesList: any[] = []
+    let edgesReg: any[] = []
     let edges: any[] = []
 
     let validEdges = new Set(["start", "during", "end"])
     let validNodes = new Set<string>([])
 
-    // validEdges.add('sdf')
+    for (const nodeName in TestData.incidents) {
+        // console.log('n>>>>',nodeName,'>>',TestData.incidents[nodeName].position)
 
-    for (let nodeName in TestData.incidents) {
-        // nodes.push({id: nodeName, data: {label: nodeName}, position: {x: 100, y: 100}})
-        console.log(`nodeName ${nodeName}`,TestData.incidents[nodeName] )
         for (let edgeItem in TestData.incidents[nodeName]) {
-            if (!validEdges.has(edgeItem) ) continue
-            if (!(TestData.incidents[nodeName][edgeItem].incident || TestData.incidents[nodeName][edgeItem].event)) continue
-
-            const source = [TestData.incidents[nodeName][edgeItem].incident, TestData.incidents[nodeName][edgeItem].event ]
+            if (!validEdges.has(edgeItem)) continue
+            if (!(TestData.incidents[nodeName][edgeItem].incident || TestData.incidents[nodeName][edgeItem].event))
+                continue
             if (!validNodes.has(nodeName)) validNodes.add(nodeName)
 
-            source.map((v,i) => {
-                if (!v) return
-                if (v[0] != '/' && v[1] != '/' && !validNodes.has(v.replaceAll("!", ""))) validNodes.add(v.replaceAll("!", ""))
-                edges.push({
-                    source: v[0] != '/' && v[1] != '/' ? v.replaceAll("!", "") : '',
-                    sourceHandle: v[0] == '!' ? 'end' : 'start',
-                    target: nodeName,
-                    targetHandle: edgeItem,
-                    needRegExp: v[0] == '/' || v[1] == '/' ? v : '',
-                    data: TestData.incidents[nodeName][edgeItem]
+            const source = [
+                TestData.incidents[nodeName][edgeItem].incident,
+                TestData.incidents[nodeName][edgeItem].event,
+            ]
+
+            source.map((sourceNamesItem) => {
+                if (!sourceNamesItem) return
+
+                getSourceData(sourceNamesItem, validNodes).map((sourceName) => {
+                    if (sourceName.needRegExp == "") {
+                        edges.push({
+                            source: sourceName.name,
+                            sourceHandle: sourceName.handle,
+                            target: nodeName,
+                            targetHandle: edgeItem,
+                            data: TestData.incidents[nodeName][edgeItem],
+                        })
+                    } else {
+                        edgesReg.push({
+                            needRegExp: new RegExp(sourceName.needRegExp),
+                            sourceHandle: sourceName.handle,
+                            target: nodeName,
+                            targetHandle: edgeItem,
+                            data: TestData.incidents[nodeName][edgeItem],
+                        })
+                    }
                 })
-                // console.log('>>>>>',v)
             })
         }
-        
-
     }
+    //теперь у нас готов перечень узлов и остались только регулярки
+    for (const EdgesRegItem of edgesReg) {
+        validNodes.forEach((v1) => {
+            if (v1.match(EdgesRegItem.needRegExp)) {
+                edges.push({
+                    source: v1,
+                    sourceHandle: EdgesRegItem.sourceHandle,
+                    target: EdgesRegItem.target,
+                    targetHandle: EdgesRegItem.targetHandle,
+                    data: EdgesRegItem.data,
+                })
+            }
+        })
+    }
+    //доделаем список узлов:
+    let ii = 0
+    let ii2 = 0
+    validNodes.forEach((v1) => {
+        const nodeItem: {
+            id: string
+            data: {label: string; dataId: any}
+            position: {x: number; y: number}
+            type: string
+        } = {
+            id: v1,
+            data: {label: v1, dataId: {}},
+            position: {x: ii, y: -2},
+            type: "incident",
+        }
 
-    console.log('___________________')
-    console.log('validNodes',validNodes)
-    console.log('edgesList',edgesList)
-    console.log('nodes',nodes)
-    console.log('edges',edges)
-    return '|________ok________|'
+        if (TestData.incidents[v1]) {
+            if (TestData.incidents[v1].position) {
+                nodeItem.position = TestData.incidents[v1].position
+            } else {
+                ii2 = ii2 + 1
+                nodeItem.position = {x: ii * stepX, y: ii2 * stepY}
+            }
+            // nodeItem.position = TestData.incidents[v1].position ? TestData.incidents[v1].position : {x: 0, y: ii}
+            nodeItem.data.dataId = TestData.incidents[v1]
+        } else {
+            ii = ii + 1
+            ii2 = 0
+            nodeItem.type = "event"
+            nodeItem.position.y = nodeItem.position.y * stepY
+            nodeItem.position.x = nodeItem.position.x * stepX
+        }
+        nodes.push(nodeItem)
+    })
+
+    nodes.sort((a, b) => {
+        if (a.id > b.id) {
+            return 1
+        } else {
+            return -1
+        }
+    })
+
+    edges.map((v, i) => {
+        const colorEdge = v.sourceHandle == "start" ? colorStart : v.sourceHandle == "during" ? colorDuring : colorEnd
+        v.id = i.toString()
+        v.style = {stroke: `${colorEdge}`}
+        v.markerEnd = {type: MarkerType.ArrowClosed, color: `${colorEdge}`}
+    })
+
+    // console.log('___________________')
+    // console.log('validNodes',validNodes)
+    // console.log('edgesReg',edgesReg)
+    // console.log('nodes',nodes)
+    // console.log('edges',edges)
+    return {nodes, edges}
+}
+
+export function convertToEnterData(nodes: any[], edges: any[]) {
+    let convertedData: any = {incidents: {}}
+    console.log("nodes", nodes)
+    console.log("edges", edges)
+
+    nodes.map((v) => {
+        convertedData.incidents[v.id] = {
+            // position: {x: +(v.position.x / stepX).toFixed(5), y: +(v.position.y / stepY).toFixed(5)},
+            position: {x: +v.position.x.toFixed(5), y: +v.position.y.toFixed(5)},
+            oldData: v.data.dataId,
+        }
+    })
+
+    edges.map((v) => {
+        convertedData.incidents[v.target][v.targetHandle]
+            ? (convertedData.incidents[v.target][v.targetHandle].incident = `${
+                  convertedData.incidents[v.target][v.targetHandle].incident
+              } | ${v.source}`)
+            : (convertedData.incidents[v.target][v.targetHandle] = {incident: v.source})
+    })
+    console.log("выходные данные", convertedData)
+
+    return convertedData
 }
