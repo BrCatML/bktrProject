@@ -111,12 +111,12 @@ export function getInitData(TestData: any) {
     validNodes.forEach((v1) => {
         const nodeItem: {
             id: string
-            data: {label: string; dataId: any}
+            data: {label: string; dataId?: any}
             position: {x: number; y: number}
             type: string
         } = {
             id: v1,
-            data: {label: v1, dataId: {}},
+            data: {label: v1, dataId: undefined},
             position: {x: ii, y: -2},
             type: "incident",
         }
@@ -169,10 +169,12 @@ export function convertToEnterData(nodes: any[], edges: any[]) {
     console.log("edges", edges)
 
     nodes.map((v) => {
-        convertedData.incidents[v.id] = {
-            // position: {x: +(v.position.x / stepX).toFixed(5), y: +(v.position.y / stepY).toFixed(5)},
-            position: {x: +v.position.x.toFixed(5), y: +v.position.y.toFixed(5)},
-            oldData: v.data.dataId,
+        if (v.data.dataId) {
+            convertedData.incidents[v.id] = {
+                // position: {x: +(v.position.x / stepX).toFixed(5), y: +(v.position.y / stepY).toFixed(5)},
+                position: {x: +v.position.x.toFixed(5), y: +v.position.y.toFixed(5)},
+                oldData: v.data.dataId,
+            }
         }
     })
 

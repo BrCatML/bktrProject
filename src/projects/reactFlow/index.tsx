@@ -152,7 +152,7 @@ function Flow() {
                     {/* </div> */}
                     <Button
                         onClick={() => {
-                            console.log(incidentConfig.data)
+                            console.log(incidentConfig)
                             convertToEnterData(nodes, edges)
                         }}
                     >
