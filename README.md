@@ -34,10 +34,17 @@
 
 ### Docker
 Есть 2 файла, оба рабочие.
+
  - `dockerfile` - копирует dist в докер. Сборка приложения проводится вручную.
+
  сборка приложения: `npm run build` соберется в папку `dist`
+
  сборка: `docker build -t bktrml:one .`
+
  запуск: `docker run -p 8888:80 bktrml:one`
+
  - `dockerfile.multistage` - сам собирает приложение . Нужно подключение к dev.
+
  сборка: `docker build -t bktrml:one --build-arg NPM_LOGIN=логин --build-arg NPM_PASSWORD=пароль -f dockerfile.multistage .`
+ 
  запуск: `docker run -p 8888:80 bktrml:one`
