@@ -31,3 +31,23 @@
  - Научиться работать с темами оформения.
  - Изучение верстки. Пробная реализация идей отсюда: [webDesign](https://ru.pinterest.com/bktrml/webdesign/). Можно подергать картинки из FarCry6 для фона.
  - Создание компонентов.
+
+### Docker
+
+Для работы устанавливалось приложение docker desktop c сайта [www.docker.com](https://www.docker.com/) + регистрация. Затем создавался приватный репозиторий.
+
+Далее были созданы 2 файла, оба рабочие.
+
+ - `dockerfile` - копирует dist в докер. Сборка приложения проводится вручную.
+
+ сборка приложения: `npm run build` соберется в папку `dist`
+
+ сборка: `docker build -t bktrml:one .`
+
+ запуск: `docker run -p 8888:80 bktrml:one`
+
+ - `dockerfile.multistage` - сам собирает приложение . Нужно подключение к dev.
+
+ сборка: `docker build -t bktrml:one --build-arg NPM_LOGIN=логин --build-arg NPM_PASSWORD=пароль -f dockerfile.multistage .`
+
+ запуск: `docker run -p 8888:80 bktrml:one`
