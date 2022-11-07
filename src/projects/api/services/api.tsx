@@ -34,7 +34,7 @@ interface ActivityResponse {
   }
   
   export const getRandomActivity = (): PromiseLike<ActivityResponse> =>
-    fetch("http://www.boredapi.com/api/activity/").then((response) => {
+    fetch("https://www.boredapi.com/api/activity/").then((response) => {
       return response.json();
     });
 
