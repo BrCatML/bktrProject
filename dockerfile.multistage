@@ -1,8 +1,5 @@
 FROM node:16 AS build-stage
 
-ARG NPM_LOGIN
-ARG NPM_PASSWORD
-
 WORKDIR /app 
 
 COPY package*.json ./
