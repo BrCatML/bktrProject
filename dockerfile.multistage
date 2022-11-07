@@ -3,18 +3,9 @@ FROM node:16 AS build-stage
 ARG NPM_LOGIN
 ARG NPM_PASSWORD
 
-ENV NPM_CONFIG_REGISTRY=https://repo.dev002.local/api/npm/npm
-ENV NPM_CONFIG_STRICT_SSL=false
-
 WORKDIR /app 
 
-COPY .npmrc package*.json ./
-
-RUN npx npm-cli-adduser \
- --registry $NPM_CONFIG_REGISTRY \
- --username $NPM_LOGIN \
- --password $NPM_PASSWORD \
- --email noreply@sibur.ru
+COPY package*.json ./
 
 RUN npm ci 
 
