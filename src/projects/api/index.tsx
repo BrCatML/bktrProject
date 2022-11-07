@@ -5,7 +5,7 @@ import { useCatFacts } from "./hooks/useCatFacts";
 import { RecentFacts } from "./components/RecentFacts";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
-import { Activity } from "./components/Activity";
+import { Activity } from "./components/activity/Activity";
 import { useActivity } from "./hooks/useActivity";
 import Divider from "antd/es/divider"
 

@@ -1,14 +1,10 @@
 import React, { useEffect } from "react";
-// //@ts-ignore
-// import Logo from '../../static/logo_100.png'
 
 // export default () => {
-
 //   return (
 //     <div className="index-style ">
 //     <div style={{margin: 'auto'}}>
-//         <img src={Logo} height={100} width={100} alt="bktr" />
-//         <h1>R E D U X</h1>
+//         <h1>E F F E C T O R</h1>
 //     </div>
 //     </div>
 //   )
@@ -65,35 +61,3 @@ export default function App() {
         </div>
     )
 }
-
-
-
-
-
-
-// function App2() {
-//     const [open, setOpen] = useLocalStorage("catfacts:open-history", false);
-//     const { busy, fact, handleNext, recent } = useCatFacts();
-//     const { busyAct, activity, type, handleNextAct} = useActivity();
-
-//     const handleToggle = useCallback(
-//         (newOpen) => {
-//             setOpen(newOpen);
-//         },
-//         [setOpen]
-//     );
-
-//     return (
-//         <div className="api-style ">
-//             <h1>Api test</h1>
-//             <div className="api-content">
-//                 <CatFact busy={busy} fact={fact} onClickNext={handleNext} />
-//                 <Divider />
-//                 <RecentFacts onToggle={handleToggle} open={open} facts={recent} />
-//                 <Divider />
-//                 <Activity busy={busyAct} type={type} activity={activity} onClickNext={handleNextAct} />
-//             </div>
-//         </div>
-//     );
-// // }
-// export default App()
