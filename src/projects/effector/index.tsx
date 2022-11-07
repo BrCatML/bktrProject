@@ -17,7 +17,7 @@ import React, { useEffect } from "react";
 import { useEvent, useStore } from "effector-react";
 import {fetchApiFx,actStore,fetchApiFxCat,factStore} from './store'
 
-const url = "http://www.boredapi.com/api/activity/"
+const url = "https://www.boredapi.com/api/activity/"
 const urlFact = "https://catfact.ninja/fact"
 
 export default function App() {
