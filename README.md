@@ -44,10 +44,16 @@
 
  сборка: `docker build -t bktrml:one .`
 
- запуск: `docker run -p 8888:80 bktrml:one`
+ запуск: `docker run -p 8888:81 bktrml:one`
 
- - `dockerfile.multistage` - сам собирает приложение . Нужно подключение к dev.
+ - `dockerfile.two` - сам собирает приложение . Не нужно подключение к dev.
 
- сборка: `docker build -t bktrml:one --build-arg NPM_LOGIN=логин --build-arg NPM_PASSWORD=пароль -f dockerfile.multistage .`
+ сборка: `docker build -t bktrml:two -f dockerfile.multistage .`
 
- запуск: `docker run -p 8888:80 bktrml:one`
+ запуск: `docker run -p 8888:82 bktrml:two`
+
+ - `dockerfile.multistage` - сам собирает приложение . Нужно подключение к dev и содержимое файла .npmrc, которое сейчас закомментировано.
+
+ сборка: `docker build -t bktrml:three --build-arg NPM_LOGIN=логин --build-arg NPM_PASSWORD=пароль -f dockerfile.three .`
+
+ запуск: `docker run -p 8888:83 bktrml:three`
