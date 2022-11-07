@@ -28,7 +28,7 @@ export interface ActivityResponse {
 }
       
 // export const url = "http://www.boredapi.com/api/activity/"
-export const fetchApiFx = createEffect((url: string = "http://www.boredapi.com/api/activity/") => fetch(url).then(req => req.json()) )
+export const fetchApiFx = createEffect((url: string = "https://www.boredapi.com/api/activity/") => fetch(url).then(req => req.json()) )
 
 
 export const actStore = createStore<{current: ActivityResponse | null, history: ActivityResponse[]}>({current: null, history: []})
