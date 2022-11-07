@@ -40,7 +40,7 @@ export default function Root() {
     <>
       <Layout>
         <Layout.Header style={{display: 'flex'}}> 
-        <Link to={"/"}  className="site-header">
+        <Link to={"/bktrProject/"}  className="site-header">
           <img src={Logo} alt="bktr" />
           <span>BKTR</span>
         </Link>

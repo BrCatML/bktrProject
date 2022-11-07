@@ -30,7 +30,7 @@ export const MenuList = [
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/bktrProject/",
     element: <Root />,
     errorElement: <ErrorPage />,
     children: MenuList.map((value) => ({ path : value.path, element: value.element })).concat({ path: "", element: <Main /> },)
