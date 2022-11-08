@@ -1,0 +1,9 @@
+.artifactTableMenu {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    align-items: center;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(240, 240, 240);
+}
