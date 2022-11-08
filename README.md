@@ -24,6 +24,11 @@
 ### Effector
  - [Документация](https://effector.dev/)
 
+ ### React Flow
+ - Графический редактор
+ - [GitHub](https://github.com/wbkd/react-flow?ysclid=l9p9h0hce1507052896)
+ - установка: `npm install reactflow`
+
 ## Дополнительно в проекте используются:
  - vite, потому что с ним npm run dev работает быстрее, чем без.
 
