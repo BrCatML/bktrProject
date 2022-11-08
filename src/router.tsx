@@ -12,6 +12,7 @@ import Root from "./routes/root"
 import Effector from './routes/pages/effector'
 import ReactFlow from './routes/pages/reactFlow'
 import Api from './routes/pages/api'
+import Table from './routes/pages/table'
 import Main from './routes/pages/index'
 
 export const MenuList = [
@@ -31,6 +32,11 @@ export const MenuList = [
     path: "reactFlow",
     element: <ReactFlow />,
   },
+  {
+    name: 'Table',
+    path: "table",
+    element: <Table />,
+  }, 
 
 ]
 
