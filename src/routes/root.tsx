@@ -29,7 +29,7 @@ export default function Root() {
   useEffect(() => {
     const pathParts = location.pathname.split("/")
     if (pathParts.length < 2) return
-    setCurrent(pathParts[1])
+    setCurrent(pathParts[2])
   },[location])
 
   const onClick: MenuProps['onClick'] = e => {
