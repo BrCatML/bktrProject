@@ -10,6 +10,7 @@ import ErrorPage from "./routes/error-page"
 import Root from "./routes/root"
 
 import Effector from './routes/pages/effector'
+import ReactFlow from './routes/pages/reactFlow'
 import Api from './routes/pages/api'
 import Main from './routes/pages/index'
 
@@ -24,7 +25,12 @@ export const MenuList = [
     name: 'Effector',
     path: "effector",
     element: <Effector />,
-  },  
+  },
+  {
+    name: 'ReactFlow',
+    path: "reactFlow",
+    element: <ReactFlow />,
+  },
 
 ]
 
