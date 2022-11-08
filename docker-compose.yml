@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  react_app:
+    container_name: react_app
+    reasart: always
+    ports:
+      - '8888:81'
+    volumes:
+      - ./dist:/usr/share/nginx/html
+    networks:
+      - internal
+
+networks:
+  internal:
