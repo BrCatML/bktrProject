@@ -2,11 +2,9 @@ import React from "react";
 import Api from "../../projects/api";
 
 export default () => {
-  return (
-    <Api />
-  );
-}
+  return <Api />;
+};
 
 /*
-* основная разработка ведется в '../../projects/api'
-*/
+ * основная разработка ведется в '../../projects/api'
+ */

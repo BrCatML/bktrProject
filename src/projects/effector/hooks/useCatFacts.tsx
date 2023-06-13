@@ -27,6 +27,6 @@ export const useCatFacts = () => {
     fact,
     busy,
     recent,
-    handleNext
+    handleNext,
   };
 };

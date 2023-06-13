@@ -9,9 +9,9 @@ export const useActivity = () => {
   useEffect(() => {
     setBusy(true);
     getRandomActivity().then((response) => {
-        setActivity(`${response.type.toUpperCase()}: ${response.activity}.`);
-        setType(response.type);
-        setBusy(false);
+      setActivity(`${response.type.toUpperCase()}: ${response.activity}.`);
+      setType(response.type);
+      setBusy(false);
     });
   }, []);
 
@@ -22,13 +22,12 @@ export const useActivity = () => {
       setType(response.type);
       setBusy(false);
     });
-    
   }, [activity]);
 
   return {
     type: type,
     activity: activity,
     busyAct: busy,
-    handleNextAct: handleNext
+    handleNextAct: handleNext,
   };
 };
