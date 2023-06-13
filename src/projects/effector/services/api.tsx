@@ -9,14 +9,14 @@
 Документация: https://catfact.ninja/
 */
 interface FactResponse {
-    fact: string;
-    length: number;
-  }
-  
-  export const getRandomFact = (): PromiseLike<FactResponse> =>
-    fetch("https://catfact.ninja/fact").then((response) => {
-      return response.json();
-    });
+  fact: string;
+  length: number;
+}
+
+export const getRandomFact = (): PromiseLike<FactResponse> =>
+  fetch("https://catfact.ninja/fact").then((response) => {
+    return response.json();
+  });
 
 /* 
 Чем заняться, когда скучно.
@@ -24,19 +24,19 @@ interface FactResponse {
 Сервис BoredAPI может предложить занятие на любой случай жизни: бесплатные, социальные, доступные везде и так далее.
 */
 interface ActivityResponse {
-	activity: string;
-	accessibility: number;
-	type: string;
-	participants: number;
-	price: number;
-	link: string;
-	key: number;
-  }
-  
-  export const getRandomActivity = (): PromiseLike<ActivityResponse> =>
-    fetch("http://www.boredapi.com/api/activity/").then((response) => {
-      return response.json();
-    });
+  activity: string;
+  accessibility: number;
+  type: string;
+  participants: number;
+  price: number;
+  link: string;
+  key: number;
+}
+
+export const getRandomActivity = (): PromiseLike<ActivityResponse> =>
+  fetch("http://www.boredapi.com/api/activity/").then((response) => {
+    return response.json();
+  });
 
 /* 
 Колода карт

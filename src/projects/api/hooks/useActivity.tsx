@@ -21,13 +21,12 @@ export const useActivity = () => {
       setType(response.type);
       setBusy(false);
     });
-    
   }, [activity]);
 
   return {
     type: type,
     activity: activity,
     busyAct: busy,
-    handleNextAct: handleNext
+    handleNextAct: handleNext,
   };
 };

@@ -1,7 +1,7 @@
 :root {
-	--spaceVertical: 50px;
-    --spaceHorizontal: 30px
-	/* --text: #333;
+  --spaceVertical: 50px;
+  --spaceHorizontal: 30px;
+  /* --text: #333;
 	--regular-text: 16px;
 	--lineheight: 1.65;
 	--userfont: roboto-st, sans-serif;
@@ -9,68 +9,67 @@
 }
 
 body {
-    background-color: black;
+  background-color: black;
 }
 
 .site-header {
-    color: white;
-    float: left;
-    margin-right: 28px;
-    display: 'flex';
+  color: white;
+  float: left;
+  margin-right: 28px;
+  display: "flex";
 }
 
 .site-header img {
-    height: 40px;
-    margin-right: 16px;
+  height: 40px;
+  margin-right: 16px;
 }
 
 .site-header span {
-    font-size: 20px;
-    font-weight: 700;
-    vertical-align: top;
-    
+  font-size: 20px;
+  font-weight: 700;
+  vertical-align: top;
 }
 
 .index-style {
-    display: flex;
-    height: calc(100vh - 64px);
-    color: white;
-    text-align: center;
-    max-width: calc(99vw);
-    position: relative;    
+  display: flex;
+  height: calc(100vh - 64px);
+  color: white;
+  text-align: center;
+  max-width: calc(99vw);
+  position: relative;
 }
 .index-style h1 {
-    color: white;
-    font-weight: 650;
-    font-size: 43px;
-    word-spacing: .7cm;
+  color: white;
+  font-weight: 650;
+  font-size: 43px;
+  word-spacing: 0.7cm;
 }
 
-.index-style h2 {    
-    font-weight: 650;
-    font-size: 30px;
-    word-spacing: .7cm;
+.index-style h2 {
+  font-weight: 650;
+  font-size: 30px;
+  word-spacing: 0.7cm;
 }
 
 .index-style button {
-    margin: 10px 0px;
-    width: 100%;
+  margin: 10px 0px;
+  width: 100%;
 }
 
 .api-style {
-    height: calc(100vh - 64px - var(--spaceVertical) - 10px );
-    margin: var(--spaceVertical) var(--spaceHorizontal);
-    max-width: calc(99vw);
-    position: relative;    
+  height: calc(100vh - 64px - var(--spaceVertical) - 10px);
+  margin: var(--spaceVertical) var(--spaceHorizontal);
+  max-width: calc(99vw);
+  position: relative;
 }
 
 .api-style h1 {
-    font-weight: 650;
-    font-size: 43px;
-    text-align: center;
-    letter-spacing: 5px;
+  font-weight: 650;
+  font-size: 43px;
+  text-align: center;
+  letter-spacing: 5px;
 
-    border-bottom: 3px solid #ffffff;
-    padding-bottom: calc( var(--spaceVertical) - 10px);
-    margin-bottom: calc( var(--spaceVertical) );
+  border-bottom: 3px solid #ffffff;
+  padding-bottom: calc(var(--spaceVertical) - 10px);
+  margin-bottom: calc(var(--spaceVertical));
 }
